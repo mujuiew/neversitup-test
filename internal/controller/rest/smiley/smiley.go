@@ -29,8 +29,8 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = json.Unmarshal(body, &req) // unmarshal request to struct
-	if err != nil {
+	// unmarshal request to struct
+	if err = json.Unmarshal(body, &req); err != nil {
 		log.Print("ERROR Unmarshal: ", err)
 		utility.WriteError(w, &respone)
 		return
