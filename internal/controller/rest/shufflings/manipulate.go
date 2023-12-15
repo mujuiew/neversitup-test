@@ -20,16 +20,19 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		log.Print("ERROR ReadAll: ", err)
+		utility.WriteError(w, &respone)
 		return
 	}
 	if err = r.Body.Close(); err != nil {
 		log.Print("ERROR: ", err)
+		utility.WriteError(w, &respone)
 		return
 	}
 
 	err = json.Unmarshal(body, &req) // unmarshal request to struct
 	if err != nil {
 		log.Print("ERROR Unmarshal: ", err)
+		utility.WriteError(w, &respone)
 		return
 	}
 
