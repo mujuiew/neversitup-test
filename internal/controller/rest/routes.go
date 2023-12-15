@@ -1,12 +1,18 @@
 package rest
 
 import (
-	"github.com/go-chi/chi"
+	"log"
+	"net/http"
+
+	"github.com/gorilla/mux"
 	"github.com/neversitup-test/internal/controller/rest/shufflings"
 )
 
 func Load() {
-	var router chi.Router
 
-	router.Post("/shufflings", shufflings.Handle)
+	router := mux.NewRouter()
+
+	router.HandleFunc("/shufflings", shufflings.Handle).Methods("POST")
+
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
