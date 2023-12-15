@@ -14,6 +14,7 @@ func WriteBody(w http.ResponseWriter, obj interface{}) {
 		return
 	}
 
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	fmt.Fprint(w, string(b))
 }
 
