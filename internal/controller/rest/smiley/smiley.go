@@ -1,4 +1,4 @@
-package odd
+package smiley
 
 import (
 	"encoding/json"
@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/neversitup-test/internal/core/odd"
+	"github.com/neversitup-test/internal/core/smileys"
 	"github.com/neversitup-test/internal/core/utility"
 )
 
@@ -36,22 +36,6 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	listString := odd.Process(req.Body.Number) // เรียก core function เพื่อทำการคำนวณ
+	respone.Body.Value = smileys.Process(req.Body.Text) // เรียก core function เพื่อทำการคำนวณ
 
-	respone = prepareToPesponse(listString)
-}
-
-func prepareToPesponse(resFromCore []int) Response {
-	var dataResList []AnswerList
-	for _, res := range resFromCore {
-		dataResList = append(dataResList, AnswerList{
-			Value: res,
-		})
-	}
-
-	return Response{
-		Body: ResponseBody{
-			Data: dataResList,
-		},
-	}
 }
